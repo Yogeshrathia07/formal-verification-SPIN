@@ -1,0 +1,6 @@
+packetbuf_attr()	Get metadata (seqno, RSSI, etc.)
+packetbuf_set_attr()	Set metadata
+packetbuf_addr()	Get address (sender/receiver)
+packetbuf_set_addr()	Set sender/receiver
+packetbuf_copyfrom()	Load actual payload
+packetbuf_clear()	Reset buffer
