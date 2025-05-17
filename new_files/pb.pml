@@ -17,7 +17,6 @@ inline packetbuf_set_attr(type, val) {
 
 int packetbuf_addrs[PACKETBUF_NUM_ADDRS];
 
-// Set the address at index `type`
 inline packetbuf_set_addr(type, addr_val) {
     packetbuf_addrs[type] = addr_val;
 }
@@ -25,6 +24,31 @@ inline packetbuf_set_addr(type, addr_val) {
 // Get the address from index `type`
 inline packetbuf_addr(type, result) {
     result = packetbuf_addrs[type];
+}
+// --------------------------------------------------------------
+#define PACKETBUF_SIZE 128
+byte packetbuf[PACKETBUF_SIZE];
+int buflen;
+
+inline packetbuf_clear() {
+    buflen = 0;
+}
+
+inline packetbuf_copyfrom(lena) {
+    int l;
+    packetbuf_clear(); 
+    if 
+    :: lena<PACKETBUF_SIZE -> {
+        l = lena;
+        buflen = l;
+    }
+    ::else-> {
+        l = PACKETBUF_SIZE;
+        buflen = PACKETBUF_SIZE;
+    }
+    fi;
+    buflen = l;
+    // return l;
 }
 
 init {
@@ -47,8 +71,10 @@ init {
     printf("Receiver address: %d\n", result);
 
     int type = 0; 
-    int val = -80;
+    int val = 80;
     packetbuf_set_attr(type, val);
     printf("packetbuf_attrs[%d].val = %d\n", type, packetbuf_attrs[type].val);
-
+    printf("Buffer length before copy: %d\n", buflen);
+    packetbuf_copyfrom(126);
+    printf("Buffer length after copy: %d\n", buflen);
 }
